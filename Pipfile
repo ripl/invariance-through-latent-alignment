@@ -1,0 +1,58 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = false
+name = "pypi"
+
+[[source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu111"
+verify_ssl = false
+
+[packages]
+# https://github.com/pypa/pipenv/issues/4504#issuecomment-918035921
+torch = {index = "pytorch", version = "==1.9.0+cu111"}  # This supports A6000
+torchvision = {index = "pytorch", version = "==0.10.0+cu111"}
+torchaudio = "*"
+ml-logger = "*"
+kornia = "*"
+
+# Mujoco dependencies (only for slurm)
+Cython = "*"
+lockfile = "*"
+mujoco-py = "==2.0.2.5"  # This is for mujoco 2.0.0
+gym-fetch = {editable = true, git = "https://github.com/takuma-yoneda/gym-fetch.git"}
+
+# ml-logger = {editable = true, path = "/Users/yoneda/workspace/ml_logger/ml_logger"}
+# jaynes = {ref = "fbc62fea2c41f607a83d7aae139b430fe273fca9", git = "https://github.com/takuma-ynd/jaynes.git"}
+# jaynes = {editable = true, path = "/Users/yoneda/workspace/geyang/jaynes"}
+jaynes = "*"
+cmx = "*"
+waterbear = "==2.6.6"
+# distracting-control = {editable = true, ref = "ae4ab85599e084849397f6c7731c632f1c130e12", git = "https://github.com/geyang/gym-distracting-control"}
+opencv-python = "*"
+# distracting-control = {editable = true, ref = "eaff6527514b0cbc6cb1951c6dfcbd86eb0803b5", git = "https://github.com/geyang/gym-distracting-control"}
+distracting-control = "==0.1.1-rc3"
+pandas = "*"
+functional-notations = "*"
+params-proto = "*"
+gym-dmc = "*"
+pyyaml = "*"
+scikit-image = "*"  # ml_logger dependency
+gym = "==0.19.0"
+xmltodict = "*"
+pycurl = "*"
+google-api-python-client = "*"
+google-cloud-storage = "*"
+
+[dev-packages]
+flask = "*"
+flask-cors = "*"
+flake8 = "*"
+pylint = "*"
+mypy = "*"
+ipython = "*"
+kornia = "*"
+ipdb = "*"
+
+[requires]
+python_version = "3.8"

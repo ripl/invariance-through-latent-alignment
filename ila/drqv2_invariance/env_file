@@ -1,0 +1,17 @@
+# list of envvars to run on birch
+MJKEY_PATH=/.mujoco/mjkey.txt
+PYTHONPATH=/ws
+TMPDIR=/tmp
+SNAPSHOT_DIR=/tmp/snapshots
+
+# mujoco
+# MUJOCO_PY_MUJOCO_PATH=~/mujoco/mujoco200_linux
+# export MUJOCO_PY_MJKEY_PATH=~/mujoco/secret_key/mjkey.txt
+# export PATH=~/mujoco/mujoco200_linux/bin:$PATH
+# export LD_LIBRARY_PATH=~/mujoco/mujoco200_linux/bin:$LD_LIBRARY_PATH
+# export PATH=~/mujoco/mujoco200_linux/bin:$PATH  # patchelf
+
+# dm-control
+# export MJKEY_PATH=$MUJOCO_PY_MJKEY_PATH
+# export MJLIB_PATH=~/mujoco/mujoco200_linux/bin/libmujoco200.so
+# export MUJOCO_GL=egl
