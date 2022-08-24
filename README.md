@@ -9,9 +9,11 @@
 
 [[Paper]](https://arxiv.org/abs/2112.08526) [[Website]](https://invariance-through-latent-alignment.github.io/)
 
-![method](media/method.mp4)
+[ILA-method.webm](https://user-images.githubusercontent.com/28857806/186537963-30d0d7d5-9f3f-4f9b-bbb8-2187a4db7622.webm)
 
 ## Dependency
+
+
 This codebase requires `ml-logger` and `params_proto`. Please look at `ila/docker/Dockerfile` or `Pipfile` for more dependencies.
 
 ## How to use
