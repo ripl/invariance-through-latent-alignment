@@ -2,9 +2,9 @@
 
 import numpy as np
 from params_proto.neo_hyper import Sweep
-from iti.dmc_gen.config import Args
-from iti.dmc_gen.config_helper import set_args
-from iti.invr_thru_inf.config import Adapt, CollectData
+from ila.dmc_gen.config import Args
+from ila.dmc_gen.config_helper import set_args
+from ila.invr_thru_inf.config import Adapt, CollectData
 import sys; sys.path.append('..')
 from const import envs
 envs = ['Cartpole-swingup']

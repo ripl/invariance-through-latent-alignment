@@ -187,7 +187,7 @@ webhook_url = os.environ.get("SLACK_WEBHOOK_URL", None)
 def main(**kwargs):
     from ml_logger import logger, RUN
     from drqv2_invariance.drqv2_invar import DrQV2Agent
-    from iti.invr_thru_inf.env_helpers import get_env
+    from ila.invr_thru_inf.env_helpers import get_env
     import shutil
 
     from warnings import simplefilter  # noqa

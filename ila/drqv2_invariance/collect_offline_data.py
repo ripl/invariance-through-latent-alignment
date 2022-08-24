@@ -2,7 +2,7 @@
 from os.path import join as pJoin
 from pathlib import Path
 
-from iti.invr_thru_inf.collect_offline_data import (
+from ila.invr_thru_inf.collect_offline_data import (
     upload_and_cleanup, collect_orig_latent_buffer, collect_targ_obs_buffer
 )
 
@@ -10,9 +10,9 @@ from iti.invr_thru_inf.collect_offline_data import (
 def main(**kwargs):
     from ml_logger import logger, RUN, ML_Logger
     from .config import Args, Agent
-    from iti.invr_thru_inf.config import Adapt, CollectData
-    from iti.invr_thru_inf.utils import set_seed_everywhere, get_buffer_prefix
-    from iti.helpers.tticslurm import set_egl_id
+    from ila.invr_thru_inf.config import Adapt, CollectData
+    from ila.invr_thru_inf.utils import set_seed_everywhere, get_buffer_prefix
+    from ila.helpers.tticslurm import set_egl_id
 
     from warnings import simplefilter  # noqa
     simplefilter(action='ignore', category=DeprecationWarning)

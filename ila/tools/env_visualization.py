@@ -2,7 +2,7 @@
 import os
 from typing import List
 import wandb
-from iti.helpers import logger
+from ila.helpers import logger
 
 
 def wandb_save_video(frames, key, fps=20):
@@ -14,7 +14,7 @@ def wandb_save_video(frames, key, fps=20):
 
 
 def main(env_name, distractions: List[str]):
-    from iti.invr_thru_inf.env_helpers import get_env
+    from ila.invr_thru_inf.env_helpers import get_env
     from .test_env_helpers import get_random_frames
 
     framestack = 3
@@ -44,7 +44,7 @@ def main(env_name, distractions: List[str]):
 
 if __name__ == '__main__':
     import argparse
-    from iti.helpers.tticslurm import prepare_launch
+    from ila.helpers.tticslurm import prepare_launch
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--env", type=str, default='distracting_control:Walker-walk-easy-v1', help="env name (e.g., distracting_control:Walker-walk-v1)")
@@ -58,7 +58,7 @@ if __name__ == '__main__':
 
     # Set prefix
     # job_name = kwargs['job_name']
-    from iti import RUN
+    from ila import RUN
     # RUN.prefix = f'{RUN.project}/{job_name}'
 
     print(args)

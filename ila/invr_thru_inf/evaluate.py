@@ -3,11 +3,11 @@
 import torch
 from .utils import to_torch
 import wandb
-from iti.helpers import logger
+from ila.helpers import logger
 
 @torch.no_grad()
 def evaluate_invm(agent, latent_replay, distr_replay):
-    from iti.invr_thru_inf.dynamics import invm_loss
+    from ila.invr_thru_inf.dynamics import invm_loss
 
     n_samples = 512
     batch = next(distr_replay.iterator)
@@ -43,7 +43,7 @@ def evaluate_invm(agent, latent_replay, distr_replay):
 
 @torch.no_grad()
 def evaluate_fwdm(agent, latent_replay, distr_replay):
-    from iti.invr_thru_inf.dynamics import fwdm_loss
+    from ila.invr_thru_inf.dynamics import fwdm_loss
 
     n_samples = 512
     batch = next(distr_replay.iterator)

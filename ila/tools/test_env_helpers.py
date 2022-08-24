@@ -35,7 +35,7 @@ def get_video(env, ep_len=50, size=256):
     return obs_frames, rend_frames
 
 def use_env_helpers(domain, task, distraction, outdir):
-    from iti.invr_thru_inf.env_helpers import get_env
+    from ila.invr_thru_inf.env_helpers import get_env
 
     name = f'{domain.capitalize()}-{task}'
     envname = f'distracting_control:{name}-intensity-v1'

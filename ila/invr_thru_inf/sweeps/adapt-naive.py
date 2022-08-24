@@ -2,9 +2,9 @@
 
 import numpy as np
 from params_proto.neo_hyper import Sweep
-from iti.dmc_gen.config import Args
-from iti.dmc_gen.config_helper import set_args
-from iti.invr_thru_inf.config import NaiveAdapt
+from ila.dmc_gen.config import Args
+from ila.dmc_gen.config_helper import set_args
+from ila.invr_thru_inf.config import NaiveAdapt
 
 import sys; sys.path.append('.')
 from const import envs
@@ -48,7 +48,7 @@ with Sweep(Args, NaiveAdapt) as sweep:
 @sweep.each
 def tail(Args, NaiveAdapt):
     # NOTE: pretrained policy (NaiveAdapt.snapshot_prefix) does not matter!
-    from iti.invr_thru_inf.utils import get_buffer_prefix
+    from ila.invr_thru_inf.utils import get_buffer_prefix
     from const import get_distraction_coef
     NaiveAdapt.distraction_intensity = NaiveAdapt.distraction_intensity * get_distraction_coef(NaiveAdapt.distraction_types) if NaiveAdapt.distraction_intensity is not None else 0.0
 

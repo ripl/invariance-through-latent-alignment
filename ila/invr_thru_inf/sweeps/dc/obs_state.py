@@ -2,8 +2,8 @@
 
 import numpy as np
 from params_proto.neo_hyper import Sweep
-from iti.dmc_gen.config import Args
-from iti.dmc_gen.config_helper import set_args
+from ila.dmc_gen.config import Args
+from ila.dmc_gen.config_helper import set_args
 from invr_thru_inf.config import Adapt, CollectData
 import sys; sys.path.append('..')
 from const import envs
@@ -33,7 +33,7 @@ with Sweep(Args, Adapt, CollectData) as sweep:
 @sweep.each
 def tail(Args, Adapt, CollectData):
     # NOTE: pretrained policy (Adapt.snapshot_prefix) does not matter!
-    from iti.invr_thru_inf.utils import get_bc_buffer_prefix
+    from ila.invr_thru_inf.utils import get_bc_buffer_prefix
 
     set_args(Args.algorithm, Args.env_name, Args)
 

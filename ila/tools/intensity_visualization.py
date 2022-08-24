@@ -30,7 +30,7 @@ def memoize(f):
 
 def compile_images(intensities: List[float], domains: List[Tuple[str, str]]):
     import wandb
-    from iti.invr_thru_inf.env_helpers import get_env
+    from ila.invr_thru_inf.env_helpers import get_env
     get_env = memoize(get_env)
 
     # We're retrieving a static image, thus these don't matter
@@ -73,13 +73,13 @@ def compile_images(intensities: List[float], domains: List[Tuple[str, str]]):
 
 if __name__ == '__main__':
     import os
-    from iti.helpers.tticslurm import prepare_launch
+    from ila.helpers.tticslurm import prepare_launch
     import numpy as np
     import wandb
 
     # Set prefix
     # job_name = kwargs['job_name']
-    from iti import RUN
+    from ila import RUN
     # RUN.prefix = f'{RUN.project}/{job_name}'
 
     prepare_launch()

@@ -3,21 +3,21 @@ import os
 from os.path import join as pjoin
 from pathlib import Path
 
-from iti.invr_thru_inf.collect_offline_data import (
+from ila.invr_thru_inf.collect_offline_data import (
     upload_and_cleanup, collect_orig_latent_buffer, collect_targ_obs_buffer
 )
 
-from iti import RUN
-from iti.helpers import logger, mllogger
-from iti.invr_thru_inf.env_helpers import parse_env_name
+from ila import RUN
+from ila.helpers import logger, mllogger
+from ila.invr_thru_inf.env_helpers import parse_env_name
 
 import wandb
 
 
 def main(**kwargs):
     from .config import Args
-    from iti.invr_thru_inf.config import Adapt, CollectData
-    from iti.invr_thru_inf.utils import set_seed_everywhere, get_buffer_prefix
+    from ila.invr_thru_inf.config import Adapt, CollectData
+    from ila.invr_thru_inf.utils import set_seed_everywhere, get_buffer_prefix
 
     from warnings import simplefilter  # noqa
     simplefilter(action='ignore', category=DeprecationWarning)
@@ -245,9 +245,9 @@ def main(**kwargs):
 if __name__ == '__main__':
     # Parse arguments
     import argparse
-    from iti.invr_thru_inf.config import Adapt, CollectData
+    from ila.invr_thru_inf.config import Adapt, CollectData
     from .config import Args
-    from iti.helpers.tticslurm import prepare_launch
+    from ila.helpers.tticslurm import prepare_launch
 
     parser = argparse.ArgumentParser()
     parser.add_argument("sweep_file", type=str,
@@ -263,7 +263,7 @@ if __name__ == '__main__':
 
     # Set prefix
     job_name = kwargs['job_name']
-    from iti import RUN
+    from ila import RUN
     RUN.prefix = f'{RUN.project}/{job_name}'
 
     prepare_launch(Args.job_name)

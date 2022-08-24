@@ -3,10 +3,10 @@ import os
 from os.path import join as pjoin
 import torch
 import pandas as pd
-from iti.helpers.media import tile_stacked_images
+from ila.helpers.media import tile_stacked_images
 
 import wandb
-from iti.helpers import logger, mllogger
+from ila.helpers import logger, mllogger
 from . import utils
 from copy import deepcopy
 
@@ -75,10 +75,10 @@ def draw_projection(agent, adpt_agent, orig_observations, targ_observations, key
 
 
 def main(**kwargs):
-    from iti.dmc_gen.config import Args
+    from ila.dmc_gen.config import Args
     from .config import Adapt
     from .env_helpers import get_env
-    from iti.dmc_gen.adapt import load_adpt_agent
+    from ila.dmc_gen.adapt import load_adpt_agent
 
     assert 'reacher' not in Args.env_name.lower(), 'Reacher cannot be used as it is somwhow impossible to correctly store the goal location'
 
@@ -100,7 +100,7 @@ def main(**kwargs):
     targ_obs_both = targ_obs_random + targ_obs_policy
 
     # Load adapted agents NOTE: Hardcoded!!
-    from iti.invr_thru_inf.adapt import load_snapshot
+    from ila.invr_thru_inf.adapt import load_snapshot
     if Adapt.encoder_from_scratch:
         adpt_prefix = Args.job_name.replace('latent_vis_encscr/', 'iti/from_scratch_encoder/')
     else:
@@ -135,9 +135,9 @@ def main(**kwargs):
 if __name__ == '__main__':
     # Parse arguments
     import argparse
-    from iti.dmc_gen.config import Args
-    from iti.invr_thru_inf.config import Adapt
-    from iti.helpers.tticslurm import prepare_launch
+    from ila.dmc_gen.config import Args
+    from ila.invr_thru_inf.config import Adapt
+    from ila.helpers.tticslurm import prepare_launch
 
     parser = argparse.ArgumentParser()
     parser.add_argument("sweep_file", type=str,
@@ -153,7 +153,7 @@ if __name__ == '__main__':
 
     # Set prefix
     job_name = kwargs['job_name']
-    from iti import RUN
+    from ila import RUN
     RUN.prefix = f'{RUN.project}/{job_name}'
 
     prepare_launch(Args.job_name)

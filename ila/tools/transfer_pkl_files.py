@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 if __name__ == '__main__':
-    from iti.helpers import mllogger
+    from ila.helpers import mllogger
     import os
     from os.path import join as pjoin
     import argparse

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 from params_proto.neo_hyper import Sweep
-from iti.dmc_gen.config import Args
-from iti.invr_thru_inf.config import Adapt, CollectData
+from ila.dmc_gen.config import Args
+from ila.invr_thru_inf.config import Adapt, CollectData
 import sys; sys.path.append('..')
 from const import envs
 envs = ['Cartpole-swingup', 'Cheetah-run', 'Walker-walk']

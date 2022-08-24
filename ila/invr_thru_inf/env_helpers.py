@@ -120,8 +120,8 @@ def get_env(name, frame_stack, action_repeat, seed,
 
     if module == "fake":
         import os
-        from iti.invr_thru_inf.etc.fake_ur5_env import UR5FakeFetch
-        from iti.invr_thru_inf.config import Adapt
+        from ila.invr_thru_inf.etc.fake_ur5_env import UR5FakeFetch
+        from ila.invr_thru_inf.config import Adapt
         episodes_dir = Adapt.ur5_traj_dir
         env = UR5FakeFetch(episodes_dir, int_action=("grid" in env_name))
         env = PixelObservation(env, width=render_kwargs['width'], height=render_kwargs['height'])

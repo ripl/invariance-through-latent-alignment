@@ -10,14 +10,14 @@ def main(**kwargs):
 
     from ml_logger import RUN, ML_Logger, logger
 
-    from iti.invr_thru_inf.adapt import adapt_offline, prepare_buffers
-    from iti.invr_thru_inf.config import Adapt
-    from iti.invr_thru_inf.env_helpers import get_env
-    from iti.invr_thru_inf.replay_buffer import Replay
-    from iti.invr_thru_inf.utils import (get_distr_string,
+    from ila.invr_thru_inf.adapt import adapt_offline, prepare_buffers
+    from ila.invr_thru_inf.config import Adapt
+    from ila.invr_thru_inf.env_helpers import get_env
+    from ila.invr_thru_inf.replay_buffer import Replay
+    from ila.invr_thru_inf.utils import (get_distr_string,
                                          set_seed_everywhere, update_args, record_video)
-    from iti.invr_thru_inf.adapt import load_snapshot, Progress
-    from iti.helpers.tticslurm import set_egl_id
+    from ila.invr_thru_inf.adapt import load_snapshot, Progress
+    from ila.helpers.tticslurm import set_egl_id
     from .adapt import load_adpt_agent
 
     from .config import Args, Agent

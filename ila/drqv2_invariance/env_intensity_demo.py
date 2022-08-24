@@ -48,7 +48,7 @@ def memoize(f):
 
 
 def compile_images(outdir='reprod_figures/intensities', intensities=intensities, domains=domains):
-    from iti.invr_thru_inf.env_helpers import get_env
+    from ila.invr_thru_inf.env_helpers import get_env
     from .config import Args, Agent
     import distracting_control
 

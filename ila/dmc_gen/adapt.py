@@ -3,37 +3,37 @@ import os
 from os.path import join as pjoin
 import torch
 
-from iti.invr_thru_inf.adapt import Progress
+from ila.invr_thru_inf.adapt import Progress
 import wandb
-from iti.helpers import logger, mllogger
+from ila.helpers import logger, mllogger
 
 
 def load_adpt_agent(Args, Adapt):
     """
     Load from the pretrained agent specified by snapshot_prefix.
     """
-    from iti.invr_thru_inf.env_helpers import get_env
-    from iti.invr_thru_inf.agent import AdaptationAgent
+    from ila.invr_thru_inf.env_helpers import get_env
+    from ila.invr_thru_inf.agent import AdaptationAgent
 
     dummy_env = get_env(Args.env_name, Args.frame_stack, Args.action_repeat, Args.seed,
                         size=Args.image_size)
     action_shape = dummy_env.action_space.shape
     obs_shape = dummy_env.observation_space.shape
 
-    from iti.invr_thru_inf.dummy_actors import DMCGENDummyActor
+    from ila.invr_thru_inf.dummy_actors import DMCGENDummyActor
     snapshot_dir = pjoin(Args.checkpoint_root, Adapt.snapshot_prefix)
     snapshot_path = pjoin(snapshot_dir, 'actor_state.pt')
     logger.print('Loading model from', snapshot_path)
     actor_state = mllogger.load_torch(path=snapshot_path)
 
-    from iti.dmc_gen.algorithms.factory import make_agent
+    from ila.dmc_gen.algorithms.factory import make_agent
     mock_agent = make_agent(obs_shape, action_shape, Args)
     mock_agent.actor.load_state_dict(actor_state)
     encoder = mock_agent.actor.encoder
 
     if Adapt.encoder_from_scratch:
         logger.print('Adapt.encoder_from_scratch is set. Randomizing weights of encoder.')
-        from iti.dmc_gen.algorithms.modules import weight_init
+        from ila.dmc_gen.algorithms.modules import weight_init
         encoder.apply(weight_init)
     config = dict(
         encoder=encoder, actor_from_obs=DMCGENDummyActor(mock_agent.actor),
@@ -41,7 +41,7 @@ def load_adpt_agent(Args, Adapt):
         feature_dim=Args.projection_dim  # TODO: <-- check if this is reasonable!
     )
 
-    from iti.invr_thru_inf.dynamics import (DynamicsModel,
+    from ila.invr_thru_inf.dynamics import (DynamicsModel,
                                             InverseDynamicsHead, ForwardDynamicsHead, ImplicitDynamicsHead,
                                             invm_loss, fwdm_loss, impm_loss)
     from torch.optim import RMSprop
@@ -83,13 +83,13 @@ def load_adpt_agent(Args, Adapt):
 
 
 def main(**kwargs):
-    from iti.helpers.tticslurm import set_egl_id
-    from iti.invr_thru_inf.utils import set_seed_everywhere
-    from iti.invr_thru_inf.adapt import prepare_buffers, adapt_offline
-    from iti.invr_thru_inf.env_helpers import get_env
-    from iti.invr_thru_inf.replay_buffer import Replay
-    from iti.invr_thru_inf.config import Adapt
-    from iti import RUN
+    from ila.helpers.tticslurm import set_egl_id
+    from ila.invr_thru_inf.utils import set_seed_everywhere
+    from ila.invr_thru_inf.adapt import prepare_buffers, adapt_offline
+    from ila.invr_thru_inf.env_helpers import get_env
+    from ila.invr_thru_inf.replay_buffer import Replay
+    from ila.invr_thru_inf.config import Adapt
+    from ila import RUN
 
     from .config import Args
 
@@ -140,7 +140,7 @@ def main(**kwargs):
     if mllogger.glob(checkpoint_path):
 
         # Verify that arguments are consistent
-        from iti.invr_thru_inf.utils import verify_args
+        from ila.invr_thru_inf.utils import verify_args
         loaded_args = mllogger.read_params("Args")
         verify_args(vars(Args), loaded_args)
 
@@ -153,7 +153,7 @@ def main(**kwargs):
             return
         except KeyError:
             assert not Adapt.encoder_from_scratch
-            from iti.invr_thru_inf.adapt import load_snapshot
+            from ila.invr_thru_inf.adapt import load_snapshot
             # Load adaptation agent from s3
             logger.print(f'Resuming from the checkpoint. step: {Progress.step}')
             adapt_agent = load_snapshot(Args.checkpoint_root)
@@ -162,7 +162,7 @@ def main(**kwargs):
             # mllogger.timer_cache['start'] = mllogger.timer_cache['episode'] - Progress.wall_time
 
     else:
-        from iti.invr_thru_inf.config import Adapt
+        from ila.invr_thru_inf.config import Adapt
         adapt_agent = load_adpt_agent(Args, Adapt)
 
     # NOTE: Below only requires Args and Adapt
@@ -192,9 +192,9 @@ def main(**kwargs):
 if __name__ == '__main__':
     # Parse arguments
     import argparse
-    from iti.invr_thru_inf.config import Adapt
+    from ila.invr_thru_inf.config import Adapt
     from .config import Args
-    from iti.helpers.tticslurm import prepare_launch
+    from ila.helpers.tticslurm import prepare_launch
 
     parser = argparse.ArgumentParser()
     parser.add_argument("sweep_file", type=str,
@@ -210,7 +210,7 @@ if __name__ == '__main__':
 
     # Set prefix
     job_name = kwargs['job_name']
-    from iti import RUN
+    from ila import RUN
     RUN.prefix = f'{RUN.project}/{job_name}'
 
     prepare_launch(Args.job_name)

@@ -59,9 +59,9 @@ def evaluate(env, agent, video, num_episodes, adapt=False, mean=True):
 def main(**kwargs):
     from ml_logger import logger, ML_Logger
     from .config import Args
-    from iti.invr_thru_inf.config import Adapt
-    from iti.invr_thru_inf.env_helpers import get_env
-    from iti.helpers.tticslurm import set_egl_id
+    from ila.invr_thru_inf.config import Adapt
+    from ila.invr_thru_inf.env_helpers import get_env
+    from ila.helpers.tticslurm import set_egl_id
     # Set seed
     set_egl_id()
     utils.set_seed_everywhere(kwargs['seed'])

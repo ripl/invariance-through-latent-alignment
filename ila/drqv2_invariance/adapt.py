@@ -2,15 +2,15 @@
 from os.path import join as pJoin
 import torch
 
-from iti.invr_thru_inf.adapt import Progress
+from ila.invr_thru_inf.adapt import Progress
 
 def load_adpt_agent(Args, Agent, Adapt):
     """
     Load from the pretrained agent specified by snapshot_prefix.
     """
     from ml_logger import logger
-    from iti.invr_thru_inf.env_helpers import get_env
-    from iti.invr_thru_inf.agent import AdaptationAgent
+    from ila.invr_thru_inf.env_helpers import get_env
+    from ila.invr_thru_inf.agent import AdaptationAgent
 
     dummy_env = get_env(Args.train_env, Args.frame_stack, Args.action_repeat, Args.seed)
     action_shape = dummy_env.action_space.shape
@@ -30,7 +30,7 @@ def load_adpt_agent(Args, Agent, Adapt):
         feature_dim=Agent.feature_dim
     )
 
-    from iti.invr_thru_inf.dynamics import (DynamicsModel,
+    from ila.invr_thru_inf.dynamics import (DynamicsModel,
                                         InverseDynamicsHead, ForwardDynamicsHead, ImplicitDynamicsHead,
                                         invm_loss, fwdm_loss, impm_loss)
     from torch.optim import RMSprop
@@ -73,12 +73,12 @@ def load_adpt_agent(Args, Agent, Adapt):
 
 def main(**kwargs):
     from ml_logger import logger, RUN, ML_Logger
-    from iti.invr_thru_inf.utils import set_seed_everywhere
-    from iti.invr_thru_inf.adapt import prepare_buffers, adapt_offline
-    from iti.invr_thru_inf.env_helpers import get_env
-    from iti.invr_thru_inf.replay_buffer import Replay
-    from iti.invr_thru_inf.config import Adapt
-    from iti.helpers.tticslurm import set_egl_id
+    from ila.invr_thru_inf.utils import set_seed_everywhere
+    from ila.invr_thru_inf.adapt import prepare_buffers, adapt_offline
+    from ila.invr_thru_inf.env_helpers import get_env
+    from ila.invr_thru_inf.replay_buffer import Replay
+    from ila.invr_thru_inf.config import Adapt
+    from ila.helpers.tticslurm import set_egl_id
 
     from .config import Args, Agent
 
@@ -171,7 +171,7 @@ def main(**kwargs):
     if RUN.resume and mllogger.glob('checkpoint.pkl'):
 
         # Verify that arguments are consistent
-        from iti.invr_thru_inf.utils import verify_args
+        from ila.invr_thru_inf.utils import verify_args
         loaded_args = mllogger.read_params("Args")
         verify_args(vars(Args), loaded_args)
         loaded_args = mllogger.read_params("Agent")
@@ -185,7 +185,7 @@ def main(**kwargs):
                          'This job seems to have been completed already.')
             return
         except KeyError:
-            from iti.invr_thru_inf.adapt import load_snapshot
+            from ila.invr_thru_inf.adapt import load_snapshot
             # Load adaptation agent from s3
             logger.print(f'Resuming from the checkpoint. step: {Progress.step}')
             adapt_agent = load_snapshot(Args.checkpoint_root)
@@ -194,7 +194,7 @@ def main(**kwargs):
             mllogger.timer_cache['start'] = mllogger.timer_cache['episode'] - Progress.wall_time
 
     else:
-        from iti.invr_thru_inf.config import Adapt
+        from ila.invr_thru_inf.config import Adapt
         adapt_agent = load_adpt_agent(Args, Agent, Adapt)
 
     # NOTE: Below only requires Args, Agent and Adapt

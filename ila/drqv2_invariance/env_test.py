@@ -2,7 +2,7 @@
 
 import os
 from .config import Agent, Args, Adapt
-from iti.invr_thru_inf.env_helpers import get_env
+from ila.invr_thru_inf.env_helpers import get_env
 import numpy as np
 
 
